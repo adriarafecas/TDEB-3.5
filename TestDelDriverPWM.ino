@@ -40,23 +40,22 @@ void loop() {
   // Comprova si s'ha arribat al límit superior i canvia la direcció
   if (iLoop >= 255) {
     incrementLoop = -increment; // Comença a baixar
-    // Canvia la direcció dels motors
-    digitalWrite(int_A, !digitalRead(int_A));
-    digitalWrite(int_B, !digitalRead(int_B));
-  }   
-  // Comprova si s'ha arribat al límit inferior i canvia la direcció
-  if (iLoop <= 0) {
-    incrementLoop = increment; // Comença a pujar
-    // Canvia la direcció dels motors
-    digitalWrite(int_A, !digitalRead(int_A));
-    digitalWrite(int_B, !digitalRead(int_B));
+  } else {
+    // Comprova si s'ha arribat al límit inferior i canvia la direcció
+    if (iLoop <= 0) {
+      incrementLoop = increment; // Comença a pujar
+      // Canvia la direcció dels motors
+      digitalWrite(int_A, !digitalRead(int_A));
+      digitalWrite(int_B, !digitalRead(int_B));
+    }
   }
+  
 
   delay(10); // Petit retard per veure el canvi gradual
 
   // Motor A augmenta o disminueix la velocitat
   analogWrite(PWM_A, iLoop);
 
-  // Motor B augmenta o disminueix la velocitat de manera inversa
-  analogWrite(PWM_B, 255 - iLoop);
+  // Motor B augmenta o disminueix la velocitat
+  analogWrite(PWM_B, iLoop);
 }
