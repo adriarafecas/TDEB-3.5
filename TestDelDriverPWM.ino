@@ -4,9 +4,9 @@ const int PWM_A = 20;
 const int int_B = 22;
 const int int_A = 21;
 const int STBY = 1;
-int iLoop = 0; // Loop de 0-255 o 0-255
-int increaseTheIncrement = 1; // Quantitat que puja
-int incrementLoop = increaseTheIncrement; // Saber si puja o baixa
+int iLoop = 0; // indicador Loop de 0-255-0
+int increment = 1; // Quantitat que puja en cada iteracio
+int incrementLoop = increment; // increment actual
 
 void setup() {
   // Inicialitza la comunicació sèrie a 9600 baudios
@@ -37,15 +37,16 @@ void loop() {
 
   iLoop += incrementLoop;
 
-  // Comprova si s'ha arribat al límit superior o inferior i canvia la direcció
+  // Comprova si s'ha arribat al límit superior i canvia la direcció
   if (iLoop >= 255) {
-    incrementLoop = -increaseTheIncrement; // Comença a baixar
+    incrementLoop = -increment; // Comença a baixar
     // Canvia la direcció dels motors
     digitalWrite(int_A, !digitalRead(int_A));
     digitalWrite(int_B, !digitalRead(int_B));
   }   
+  // Comprova si s'ha arribat al límit inferior i canvia la direcció
   if (iLoop <= 0) {
-    incrementLoop = increaseTheIncrement; // Comença a pujar
+    incrementLoop = increment; // Comença a pujar
     // Canvia la direcció dels motors
     digitalWrite(int_A, !digitalRead(int_A));
     digitalWrite(int_B, !digitalRead(int_B));
